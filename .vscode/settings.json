@@ -1,0 +1,14 @@
+{
+	"files.associations": {
+		"array": "cpp",
+		"cmath": "cpp",
+		"iostream": "cpp",
+		"algorithm": "cpp",
+		"chrono": "cpp",
+		"limits": "cpp",
+		"random": "cpp",
+		"utility": "cpp",
+		"valarray": "cpp",
+		"thread": "cpp"
+	}
+}
