@@ -24,6 +24,8 @@
 
 #define APP_NAME "smoke_sim"
 
+#include <openvdb/openvdb.h>
+
 using namespace jet;
 
 const size_t kEdgeBlur = 3;
@@ -107,6 +109,76 @@ void saveVolumeAsVol(const ScalarGrid3Ptr& density, const std::string& rootDir,
     }
 }
 
+void saveVolumeAsVDB(const ScalarGrid3Ptr& density, const std::string& rootDir,
+                     int frameCnt) {
+    char basename[256];
+    snprintf(basename, sizeof(basename), "frame_%06d.vdb", frameCnt);
+    std::string filename = pystring::os::path::join(rootDir, basename);
+
+    printf("Writing %s...\n", filename.c_str());
+
+    openvdb::FloatGrid::Ptr vdbGrid = openvdb::FloatGrid::create();
+
+    openvdb::FloatGrid::Accessor accessor = vdbGrid->getAccessor();
+
+    Array3<float> data(density->dataSize());
+    data.parallelForEachIndex([&](size_t i, size_t j, size_t k) {
+        float d = static_cast<float>((*density)(i, j, k));
+
+        // Blur the edge for less-noisy rendering
+        if (i < kEdgeBlur) {
+            d *= smoothStep(0.f, kEdgeBlurF, static_cast<float>(i));
+        }
+        if (i > data.size().x - 1 - kEdgeBlur) {
+            d *= smoothStep(0.f, kEdgeBlurF,
+                            static_cast<float>((data.size().x - 1) - i));
+        }
+        if (j < kEdgeBlur) {
+            d *= smoothStep(0.f, kEdgeBlurF, static_cast<float>(j));
+        }
+        if (j > data.size().y - 1 - kEdgeBlur) {
+            d *= smoothStep(0.f, kEdgeBlurF,
+                            static_cast<float>((data.size().y - 1) - j));
+        }
+        if (k < kEdgeBlur) {
+            d *= smoothStep(0.f, kEdgeBlurF, static_cast<float>(k));
+        }
+        if (k > data.size().z - 1 - kEdgeBlur) {
+            d *= smoothStep(0.f, kEdgeBlurF,
+                            static_cast<float>((data.size().z - 1) - k));
+        }
+
+        data(i, j, k) = d;
+    });
+
+    auto size = data.size();
+
+    for (int x = 0; x < size.x; ++x) {
+        for (int y = 0; y < size.y; ++y) {
+            for (int z = 0; z < size.z; ++z) {
+                accessor.setValue(openvdb::Coord(x, y, z), data(x, y, z));
+            }
+        }
+    }
+
+    // for (size_t k = 0; k < size.z; k++) {
+    //     for (size_t j = 0; j < size.y; j++) {
+    //         for (size_t i = 0; i < size.x; i++) {
+    //             openvdb::Coord ijk((int)i, (int)j, (int)k);
+    //             accessor.setValue(ijk, data(i, j, k));
+    //         }
+    //     }
+    // }
+
+    openvdb::GridPtrVec vdbGrids;
+    vdbGrids.push_back(vdbGrid);
+
+    // openvdb::io::File file("grid_" + std::to_string(frameCnt) + ".vdb");
+    openvdb::io::File file(filename);
+    file.write(vdbGrids);
+    file.close();
+}
+
 void saveVolumeAsTga(const ScalarGrid3Ptr& density, const std::string& rootDir,
                      int frameCnt) {
     char basename[256];
@@ -182,6 +254,8 @@ void runSimulation(const std::string& rootDir,
             saveVolumeAsVol(density, rootDir, frame.index);
         } else if (format == "tga") {
             saveVolumeAsTga(density, rootDir, frame.index);
+        } else if (format == "vdb") {
+            saveVolumeAsVDB(density, rootDir, frame.index);
         }
     }
 }
@@ -416,7 +490,9 @@ int main(int argc, char* argv[]) {
     int exampleNum = 1;
     std::string logFilename = APP_NAME ".log";
     std::string outputDir = APP_NAME "_output";
-    std::string format = "tga";
+    // std::string format = "tga";
+    // std::string format = "vol";
+    std::string format = "vdb";
 
     // Parsing
     auto parser =

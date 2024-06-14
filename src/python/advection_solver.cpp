@@ -11,7 +11,7 @@
 #include <jet/advection_solver3.h>
 
 namespace py = pybind11;
-using namespace jet;
+using namespace jet;    
 
 void addAdvectionSolver2(py::module& m) {
     py::class_<AdvectionSolver2, AdvectionSolver2Ptr>(m, "AdvectionSolver2",

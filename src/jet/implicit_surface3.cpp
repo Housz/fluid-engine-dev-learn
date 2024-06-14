@@ -17,7 +17,7 @@ ImplicitSurface3::ImplicitSurface3(
 }
 
 ImplicitSurface3::ImplicitSurface3(const ImplicitSurface3& other) :
-    Surface3(other) {
+    Surface3(other) {               
 }
 
 ImplicitSurface3::~ImplicitSurface3() {

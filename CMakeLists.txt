@@ -7,7 +7,8 @@
 #
 
 # CMake version
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+# cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.20)
 
 # Include cmake modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -102,6 +103,7 @@ add_subdirectory(src/examples/sph_sim)
 add_subdirectory(src/examples/playground)
 
 add_subdirectory(src/examples/my_hello_fluid_sim)
+add_subdirectory(src/examples/my_math_test)
 
 # add_subdirectory(external/pybind11)
 # if (BUILD_FROM_PIP)

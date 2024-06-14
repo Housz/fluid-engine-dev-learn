@@ -1,0 +1,7 @@
+README.md
+setup.py
+pyjet.egg-info/PKG-INFO
+pyjet.egg-info/SOURCES.txt
+pyjet.egg-info/dependency_links.txt
+pyjet.egg-info/not-zip-safe
+pyjet.egg-info/top_level.txt

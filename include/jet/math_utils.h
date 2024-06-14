@@ -202,7 +202,7 @@ inline void getBarycentric(T x, ssize_t iLow, ssize_t iHigh, ssize_t* i, T* t);
 //!
 //! \param[in]  f0    The first value.
 //! \param[in]  f1    The second value.
-//! \param[in]  t     Relative offset [0, 1] from the first value.
+//! \param[in]  t     Relative offset [0, 1] from the first value. 
 //!
 //! \tparam     S     Input value type.
 //! \tparam     T     Offset type.

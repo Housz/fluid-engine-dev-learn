@@ -9,6 +9,9 @@
 # Target name
 set(target smoke_sim)
 
+find_package(OpenVDB CONFIG REQUIRED)
+
+
 # Includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -19,6 +22,7 @@ file(GLOB sources
 # Build executable
 add_executable(${target}
     ${sources})
+
 
 # Project options
 set_target_properties(${target}
@@ -45,4 +49,5 @@ target_link_libraries(${target}
     PRIVATE
     ${DEFAULT_LINKER_OPTIONS}
     jet
-    pystring)
+    pystring
+    OpenVDB::openvdb)

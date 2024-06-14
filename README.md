@@ -2,11 +2,12 @@
 
 [![License](http://img.shields.io/:license-mit-blue.svg)](LICENSE.md) ![Windows](https://github.com/doyubkim/fluid-engine-dev/workflows/Windows/badge.svg) ![Windows-MinGW](https://github.com/doyubkim/fluid-engine-dev/workflows/Windows-MinGW/badge.svg) ![Ubuntu](https://github.com/doyubkim/fluid-engine-dev/workflows/Ubuntu/badge.svg) ![macOS](https://github.com/doyubkim/fluid-engine-dev/workflows/macOS/badge.svg) [![codecov](https://codecov.io/gh/doyubkim/fluid-engine-dev/branch/main/graph/badge.svg)](https://codecov.io/gh/doyubkim/fluid-engine-dev)
 
-Jet framework is a fluid simulation engine SDK for computer graphics applications that was created by Doyub Kim as part of the book, ["Fluid Engine Development"](https://www.crcpress.com/Fluid-Engine-Development/Kim/p/book/9781498719926). The code is built on C++11 and can be compiled with most of the commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Jet currently supports macOS (10.10 or later), Ubuntu (14.04 or later), and Windows (Visual Studio 2015 or later). Other untested platforms that support C++11 also should be able to build Jet. The framework also provides Python API for faster prototyping.
+Jet framework is a fluid simulation engine SDK for computer graphics applications that was created by Doyub Kim as part of the book, [&#34;Fluid Engine Development&#34;](https://www.crcpress.com/Fluid-Engine-Development/Kim/p/book/9781498719926). The code is built on C++11 and can be compiled with most of the commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Jet currently supports macOS (10.10 or later), Ubuntu (14.04 or later), and Windows (Visual Studio 2015 or later). Other untested platforms that support C++11 also should be able to build Jet. The framework also provides Python API for faster prototyping.
 
 The latest code is always available from the [`main`](https://github.com/doyubkim/fluid-engine-dev/tree/main) branch. Since the code evolves over time, the latest from the main branch could be somewhat different from the code in the book. To find the version that is consistent with the book, check out the branch [`book-1st-edition`](https://github.com/doyubkim/fluid-engine-dev/tree/book-1st-edition).
 
 ## Key Features
+
 * Basic math and geometry operations and data structures
 * Spatial query accelerators
 * SPH and PCISPH fluid simulators
@@ -83,7 +84,6 @@ docker run -it doyubkim/fluid-engine-dev
 [inside docker container]
 /app/build/bin/hybrid_liquid_sim
 ```
-
 
 ### More Instructions of Building the Code
 
