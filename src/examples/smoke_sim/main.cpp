@@ -112,7 +112,7 @@ void saveVolumeAsVol(const ScalarGrid3Ptr& density, const std::string& rootDir,
 void saveVolumeAsVDB(const ScalarGrid3Ptr& density, const std::string& rootDir,
                      int frameCnt) {
     char basename[256];
-    snprintf(basename, sizeof(basename), "frame_%06d.vdb", frameCnt);
+    snprintf(basename, sizeof(basename), "frame_%04d.vdb", frameCnt);
     std::string filename = pystring::os::path::join(rootDir, basename);
 
     printf("Writing %s...\n", filename.c_str());
@@ -160,15 +160,6 @@ void saveVolumeAsVDB(const ScalarGrid3Ptr& density, const std::string& rootDir,
             }
         }
     }
-
-    // for (size_t k = 0; k < size.z; k++) {
-    //     for (size_t j = 0; j < size.y; j++) {
-    //         for (size_t i = 0; i < size.x; i++) {
-    //             openvdb::Coord ijk((int)i, (int)j, (int)k);
-    //             accessor.setValue(ijk, data(i, j, k));
-    //         }
-    //     }
-    // }
 
     openvdb::GridPtrVec vdbGrids;
     vdbGrids.push_back(vdbGrid);
@@ -268,6 +259,7 @@ void runExample1(const std::string& rootDir, size_t resolutionX,
             .withResolution({resolutionX, 2 * resolutionX, resolutionX})
             .withDomainSizeX(1.0)
             .makeShared();
+    // vs: jacobi g-s cg multigrid 
 
     solver->setAdvectionSolver(std::make_shared<CubicSemiLagrangian3>());
 
